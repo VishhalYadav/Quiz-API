@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "036ec3b9-ddb4-4a30-8d83-d2eeffdd02be",
+		"name": "Quiz API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23726807"
+	},
+	"item": [
+		{
+			"name": "Authenication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"const token = responseJson.token;\r",
+									"\r",
+									"pm.environment.set('jwt', token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\"email\":\"vishal@gmail.com\",\r\n\"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"const token = responseJson.token;\r",
+									"\r",
+									"pm.environment.set('jwt', token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Kirti\",\r\n    \"email\":\"kirti@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz",
+			"item": [
+				{
+					"name": "Create Quiz",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Astrology\",\r\n    \"creator\":\"64a4faa5130391cee4c6d413\",\r\n    \"questions\":[{\r\n        \"text\":\"Which zodiac sign is represented by the symbol of a crab?\",\r\n        \"options\":[{\r\n            \"text\":\"Aries\"\r\n        },{\r\n            \"text\":\"Cancer\",\r\n            \"isCorrect\":true\r\n        },{\r\n            \"text\":\"Libra\"\r\n        },{\r\n            \"text\":\"Capricon\"\r\n        }]\r\n    },{\r\n        \"text\":\" Which planet is known as the ruling planet of communication and intelligence?\",\r\n        \"options\":[{\r\n            \"text\":\"Mars\"\r\n        },{\r\n            \"text\":\"Mercury\",\r\n            \"isCorrect\":true\r\n        },{\r\n            \"text\":\"Venus\"\r\n        },{\r\n            \"text\":\"Jupiter\"\r\n        }]\r\n    },{\r\n        \"text\":\"Which zodiac sign is associated with the element of fire?\",\r\n        \"options\":[{\r\n            \"text\":\"Taurus\"\r\n        },{\r\n            \"text\":\"Scorpio\"\r\n\r\n        },{\r\n            \"text\":\"Aquarius\"\r\n        },{\r\n            \"text\":\"Leo\",\r\n             \"isCorrect\":true\r\n        }]\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/quizzes/create-quiz",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"create-quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/quizzes/64a51bc315003c2a55ae0393",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"64a51bc315003c2a55ae0393"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Quiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"answers\": [\r\n    {\r\n      \"questionId\": \"64a51bc315003c2a55ae0394\",\r\n      \"selectedOptions\": \"64a51bc315003c2a55ae0396\"\r\n    },\r\n    {\r\n      \"questionId\": \"64a51bc315003c2a55ae0399\",\r\n      \"selectedOptions\": \"64a51bc315003c2a55ae039b\"\r\n    },\r\n    {\r\n      \"questionId\": \"64a51bc315003c2a55ae039e\",\r\n      \"selectedOptions\": \"64a51bc315003c2a55ae03a2\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/quizzes/64a51bc315003c2a55ae0393/submit",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"64a51bc315003c2a55ae0393",
+								"submit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Participants By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/quizzes/64a51bc315003c2a55ae0393/participants",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"64a51bc315003c2a55ae0393",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"item": [
+				{
+					"name": "Get All Paticipants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
